@@ -8,7 +8,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { posts } from './reducers/postReducer';
 import { Provider } from 'react-redux';
 
-const store: ReduxStore<any> = createStore(posts, {})
+// @ts-ignore
+const store: ReduxStore<any> = createStore(posts, {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 store.subscribe(() => {
   console.log('Store state: ' + JSON.stringify(store.getState(), null, 2))

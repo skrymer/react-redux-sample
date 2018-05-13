@@ -5,14 +5,20 @@ import { Dispatch, connect } from 'react-redux';
 import { Action, postsLoaded } from '../actions/actions';
 import { Post } from '../models/Post';
 
-export interface PostsActionProps {
+export interface PostsDispatchProps {
     postsLoaded: (posts: Post[]) => void;
 }
 
-class PostsContainer extends React.Component<PostsState & PostsActionProps, {}> {
+class PostsContainer extends React.Component<PostsState & PostsDispatchProps, {}> {
     public render() {
-        return (
+        return (this.props.posts)
+        ? (
             <Posts {...this.props}/>
+        )
+        : (
+            <div>
+                <h2> Loading... </h2>
+            </div>
         );
     }
 
@@ -47,7 +53,7 @@ const mapStateToProps = (state: AppState): PostsState => {
     }
 }
 
-const dispatchToProps = (dispatch: Dispatch<Action>): PostsActionProps => {
+const dispatchToProps = (dispatch: Dispatch<Action>): PostsDispatchProps => {
     return {
         postsLoaded: (results: Post[]) => {
             dispatch(postsLoaded(results))
